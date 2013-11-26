@@ -18,6 +18,10 @@ if (! class_exists ( 'Plugin' )) {
 
 class PluginHttpsdetect extends Plugin {
 
+    protected $aInherits = array(
+        'module' => array('ModuleViewer')
+    );
+
     /**
      * Активация плагина
      */

@@ -15,10 +15,7 @@ class PluginHttpsdetect_HookHttpsdetect extends Hook {
     }
 
     public function viewer_init_after($arg){
-		$bHttps = ((isset($_SERVER['HTTP_SCHEME']) && strtolower($_SERVER['HTTP_SCHEME']) == 'https') ||
-		           (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ||
-		           (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https') ||
-		           $_SERVER['SERVER_PORT'] == 443);
+        $bHttps = Config::Get('plugin.httpsdetect.https');
 
 		if ($bHttps) {
 			$aJs = Config::Get('head.default.js');

@@ -19,7 +19,7 @@ if (! class_exists ( 'Plugin' )) {
 class PluginHttpsdetect extends Plugin {
 
     protected $aInherits = array(
-        'entity' => array('ModuleUser_EntityUser'),
+        'entity' => array('ModuleUser_EntityUser', 'ModuleTopic_EntityTopicPhoto'),
         'module' => array('ModuleViewer')
     );
 

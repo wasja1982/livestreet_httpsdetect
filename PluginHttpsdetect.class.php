@@ -26,6 +26,7 @@ class PluginHttpsdetect extends Plugin {
             'ModuleTopic_EntityTopicPhoto',
             'ModuleComment_EntityComment',
             'ModuleBlog_EntityBlog',
+            'ModuleTalk_EntityTalk',
         ),
         'module' => array('ModuleViewer')
     );

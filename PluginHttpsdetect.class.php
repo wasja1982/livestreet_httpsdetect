@@ -20,7 +20,13 @@ class PluginHttpsdetect extends Plugin {
 
     protected $aInherits = array(
         'action' => array('ActionAjax'),
-        'entity' => array('ModuleUser_EntityUser', 'ModuleTopic_EntityTopic', 'ModuleTopic_EntityTopicPhoto', 'ModuleComment_EntityComment'),
+        'entity' => array(
+            'ModuleUser_EntityUser',
+            'ModuleTopic_EntityTopic',
+            'ModuleTopic_EntityTopicPhoto',
+            'ModuleComment_EntityComment',
+            'ModuleBlog_EntityBlog',
+        ),
         'module' => array('ModuleViewer')
     );
 
@@ -40,12 +46,12 @@ class PluginHttpsdetect extends Plugin {
 
     static public function CorrectUrl($sUrl, $bBidirect = true) {
         $bHttps = Config::Get('plugin.httpsdetect.https');
-		if ($bHttps) {
+        if ($bHttps) {
             $sUrl = str_replace('http://', 'https://', $sUrl);
         } elseif ($bBidirect) {
             $sUrl = str_replace('https://', 'http://', $sUrl);
         }
-		return $sUrl;
+        return $sUrl;
     }
 
     static public function CorrectImages($sText, $bBidirect = true) {
@@ -59,6 +65,6 @@ class PluginHttpsdetect extends Plugin {
                 $sText = preg_replace('~(src\s*=\s*["|\'])https:\/\/' . $sServer . '~musi', '$1http://' . $sServer, $sText);
             }
         }
-		return $sText;
+        return $sText;
     }
 }

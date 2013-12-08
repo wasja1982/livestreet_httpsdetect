@@ -16,11 +16,6 @@ class PluginHttpsdetect_ModuleTopic_EntityTopicPhoto extends PluginHttpsdetect_I
 	 * @return mixed|null
 	 */
 	public function getPath() {
-        $sPath = parent::getPath();
-        $bHttps = Config::Get('plugin.httpsdetect.https');
-		if ($bHttps) {
-            $sPath = str_replace('http://', 'https://', $sPath);
-        }
-		return $sPath;
+        return PluginHttpsdetect::CorrectUrl(parent::getPath());
 	}
 }

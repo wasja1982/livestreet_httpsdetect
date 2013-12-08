@@ -16,12 +16,7 @@ class PluginHttpsdetect_ModuleUser_EntityUser extends PluginHttpsdetect_Inherit_
 	 * @return string|null
 	 */
 	public function getProfileAvatar() {
-        $sAvatar = parent::getProfileAvatar();
-        $bHttps = Config::Get('plugin.httpsdetect.https');
-		if ($bHttps) {
-            $sAvatar = str_replace('http://', 'https://', $sAvatar);
-        }
-		return $sAvatar;
+        return PluginHttpsdetect::CorrectUrl(parent::getProfileAvatar());
 	}
 	/**
 	 * Возвращает полный веб путь до фото
@@ -29,12 +24,7 @@ class PluginHttpsdetect_ModuleUser_EntityUser extends PluginHttpsdetect_Inherit_
 	 * @return string|null
 	 */
 	public function getProfileFoto() {
-        $sFoto = parent::getProfileFoto();
-        $bHttps = Config::Get('plugin.httpsdetect.https');
-		if ($bHttps) {
-            $sFoto = str_replace('http://', 'https://', $sFoto);
-        }
-		return $sFoto;
+        return PluginHttpsdetect::CorrectUrl(parent::getProfileFoto());
 	}
 }
 ?>

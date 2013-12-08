@@ -36,4 +36,14 @@ class PluginHttpsdetect extends Plugin {
     public function Init() {
         return true;
     }
+
+    static public function CorrectUrl($sUrl, $bBidirect = true) {
+        $bHttps = Config::Get('plugin.httpsdetect.https');
+		if ($bHttps) {
+            $sUrl = str_replace('http://', 'https://', $sUrl);
+        } elseif ($bBidirect) {
+            $sUrl = str_replace('https://', 'http://', $sUrl);
+        }
+		return $sUrl;
+    }
 }

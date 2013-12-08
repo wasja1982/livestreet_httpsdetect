@@ -9,8 +9,6 @@
  *
  **/
 
-$config = array();
-
 $sUrl = Config::Get('path.root.web');
 
 $bHttps = ((isset($_SERVER['HTTP_SCHEME']) && strtolower($_SERVER['HTTP_SCHEME']) == 'https') ||
@@ -18,8 +16,16 @@ $bHttps = ((isset($_SERVER['HTTP_SCHEME']) && strtolower($_SERVER['HTTP_SCHEME']
            (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https') ||
            $_SERVER['SERVER_PORT'] == 443);
 
+Config::Set('path.root.web', ($bHttps ? str_replace('http://', 'https://', $sUrl) : str_replace('https://', 'http://', $sUrl)));
+
+$config = array();
+
 $config['https'] = $bHttps;
 
-Config::Set('path.root.web', ($bHttps ? str_replace('http://', 'https://', $sUrl) : str_replace('https://', 'http://', $sUrl)));
+// Обрабатывать ссылки на JS-файлы
+$config['correct_js_link'] = true;
+
+// Обрабатывать ссылки на CSS-файлы
+$config['correct_css_link'] = true;
 
 return $config;

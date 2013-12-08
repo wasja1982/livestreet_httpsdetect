@@ -28,4 +28,7 @@ $config['correct_js_link'] = true;
 // Обрабатывать ссылки на CSS-файлы
 $config['correct_css_link'] = true;
 
+// Обрабатывать ссылки на изображения в тексте топиков
+$config['correct_img_src'] = true;
+
 return $config;

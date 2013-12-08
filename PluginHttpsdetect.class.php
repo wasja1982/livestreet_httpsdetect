@@ -19,7 +19,7 @@ if (! class_exists ( 'Plugin' )) {
 class PluginHttpsdetect extends Plugin {
 
     protected $aInherits = array(
-        'entity' => array('ModuleUser_EntityUser', 'ModuleTopic_EntityTopicPhoto'),
+        'entity' => array('ModuleUser_EntityUser', 'ModuleTopic_EntityTopic', 'ModuleTopic_EntityTopicPhoto'),
         'module' => array('ModuleViewer')
     );
 
@@ -45,5 +45,19 @@ class PluginHttpsdetect extends Plugin {
             $sUrl = str_replace('https://', 'http://', $sUrl);
         }
 		return $sUrl;
+    }
+
+    static public function CorrectImages($sText, $bBidirect = true) {
+        if (Config::Get('plugin.httpsdetect.correct_img_src')) {
+            $bHttps = Config::Get('plugin.httpsdetect.https');
+            $sServer = parse_url(Config::Get('path.root.web'), PHP_URL_HOST);
+
+            if ($bHttps) {
+                $sText = preg_replace('~(src\s*=\s*["|\'])http:\/\/' . $sServer . '~musi', '$1https://' . $sServer, $sText);
+            } elseif ($bBidirect) {
+                $sText = preg_replace('~(src\s*=\s*["|\'])https:\/\/' . $sServer . '~musi', '$1http://' . $sServer, $sText);
+            }
+        }
+		return $sText;
     }
 }

@@ -14,5 +14,9 @@ class PluginHttpsdetect_ModuleViewer extends PluginStaticdomain_Inherit_ModuleVi
         $this->aFilesDefault = array('js'  => array(), 'css' => array());
         $this->InitFileParams();
 	}
+
+	public function GetAssignAjax($sName) {
+        return $this->aVarsAjax[$sName];
+	}
 }
 ?>

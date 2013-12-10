@@ -18,6 +18,9 @@ $bHttps = ((isset($_SERVER['HTTP_SCHEME']) && strtolower($_SERVER['HTTP_SCHEME']
 
 Config::Set('path.root.web', ($bHttps ? str_replace('http://', 'https://', $sUrl) : str_replace('https://', 'http://', $sUrl)));
 
+Config::Set('path.smarty.cache', Config::Get('path.smarty.cache') . ($bHttps ? DIRECTORY_SEPARATOR . 'https' : ''));
+@mkdir(Config::Get('path.smarty.cache'), 0755, true);
+
 $config = array();
 
 $config['https'] = $bHttps;

@@ -9,21 +9,7 @@
  *
  **/
 
-$sUrl = Config::Get('path.root.web');
-
-$bHttps = ((isset($_SERVER['HTTP_SCHEME']) && strtolower($_SERVER['HTTP_SCHEME']) == 'https') ||
-           (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ||
-           (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https') ||
-           $_SERVER['SERVER_PORT'] == 443);
-
-Config::Set('path.root.web', ($bHttps ? str_replace('http://', 'https://', $sUrl) : str_replace('https://', 'http://', $sUrl)));
-
-Config::Set('path.smarty.cache', Config::Get('path.smarty.cache') . ($bHttps ? DIRECTORY_SEPARATOR . 'https' : ''));
-@mkdir(Config::Get('path.smarty.cache'), 0755, true);
-
 $config = array();
-
-$config['https'] = $bHttps;
 
 // Обрабатывать ссылки на JS-файлы
 $config['correct_js_link'] = true;
@@ -33,5 +19,26 @@ $config['correct_css_link'] = true;
 
 // Обрабатывать ссылки на изображения в тексте топиков и комментариев
 $config['correct_img_src'] = true;
+
+// Использовать отдельный путь для хранения JS и CSS файлов HTTPS протокола
+$config['separate_path'] = false;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// НЕ ИЗМЕНЯТЬ (коррекция служебных параметров)
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+$bHttps = ((isset($_SERVER['HTTP_SCHEME']) && strtolower($_SERVER['HTTP_SCHEME']) == 'https') ||
+           (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ||
+           (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https') ||
+           $_SERVER['SERVER_PORT'] == 443);
+
+$sUrl = Config::Get('path.root.web');
+Config::Set('path.root.web', ($bHttps ? str_replace('http://', 'https://', $sUrl) : str_replace('https://', 'http://', $sUrl)));
+$config['https'] = $bHttps;
+
+if ($config['separate_path']) {
+    Config::Set('path.smarty.cache', Config::Get('path.smarty.cache') . ($bHttps ? DIRECTORY_SEPARATOR . 'https' : ''));
+    @mkdir(Config::Get('path.smarty.cache'), 0755, true);
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 return $config;

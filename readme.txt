@@ -29,6 +29,9 @@ proxy_set_header X-Forwarded-Proto $scheme;
 - в записях на стене;
 - в информации пользователей "О себе".
 
+4) $config['separate_path'] - Добавлен параметр $config['separate_path'] - Использовать отдельный путь для хранения
+JS и CSS файлов HTTPS протокола. По умолчанию отключено (false).
+
 
 
 УСТАНОВКА

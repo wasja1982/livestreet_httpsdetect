@@ -9,7 +9,7 @@
  *
  **/
 
-class PluginHttpsdetect_ModuleViewer extends PluginStaticdomain_Inherit_ModuleViewer {
+class PluginHttpsdetect_ModuleViewer extends PluginHttpsdetect_Inherit_ModuleViewer {
 	public function ReloadFileParams() {
         $this->aFilesDefault = array('js'  => array(), 'css' => array());
         $this->InitFileParams();

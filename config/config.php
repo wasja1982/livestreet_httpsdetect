@@ -20,6 +20,9 @@ $config['correct_css_link'] = true;
 // Обрабатывать ссылки на изображения в тексте топиков и комментариев
 $config['correct_img_src'] = true;
 
+// Обрабатывать ссылки на видео в тексте топиков и комментариев
+$config['correct_video_src'] = true;
+
 // Использовать отдельный путь для хранения JS и CSS файлов HTTPS протокола
 $config['separate_path'] = false;
 

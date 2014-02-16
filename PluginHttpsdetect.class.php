@@ -58,15 +58,20 @@ class PluginHttpsdetect extends Plugin {
     }
 
     static public function CorrectImages($sText, $bBidirect = true) {
+        $bHttps = Config::Get('plugin.httpsdetect.https');
         if (Config::Get('plugin.httpsdetect.correct_img_src')) {
-            $bHttps = Config::Get('plugin.httpsdetect.https');
             $sServer = parse_url(Config::Get('path.root.web'), PHP_URL_HOST);
-
             if ($bHttps) {
                 $sText = preg_replace('~(src\s*=\s*["|\'])http:\/\/' . $sServer . '~musi', '$1https://' . $sServer, $sText);
             } elseif ($bBidirect) {
                 $sText = preg_replace('~(src\s*=\s*["|\'])https:\/\/' . $sServer . '~musi', '$1http://' . $sServer, $sText);
             }
+        }
+        if (Config::Get('plugin.httpsdetect.correct_video_src') && $bHttps) {
+            $sText = str_replace('http://www.youtube.com/embed/', 'https://www.youtube.com/embed/', $sText);
+            $sText = str_replace('http://player.vimeo.com/video/', 'https://player.vimeo.com/video/', $sText);
+            $sText = str_replace('http://video.rutube.ru/', 'https://video.rutube.ru/', $sText);
+            $sText = str_replace('http://video.yandex.ru/users/', 'https://video.yandex.ru/users/', $sText);
         }
         return $sText;
     }

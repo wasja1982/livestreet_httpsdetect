@@ -36,6 +36,8 @@ $bHttps = ((isset($_SERVER['HTTP_SCHEME']) && strtolower($_SERVER['HTTP_SCHEME']
 
 $sUrl = Config::Get('path.root.web');
 Config::Set('path.root.web', ($bHttps ? str_replace('http://', 'https://', $sUrl) : str_replace('https://', 'http://', $sUrl)));
+$sUrl = Config::Get('path.static.root');
+Config::Set('path.static.root', ($bHttps ? str_replace('http://', 'https://', $sUrl) : str_replace('https://', 'http://', $sUrl)));
 $config['https'] = $bHttps;
 
 if ($config['separate_path']) {

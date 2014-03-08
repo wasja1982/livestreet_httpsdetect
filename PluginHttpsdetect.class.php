@@ -44,6 +44,14 @@ class PluginHttpsdetect extends Plugin {
      * Инициализация плагина
      */
     public function Init() {
+        $bStaticDomain = false;
+        if (class_exists('PluginStaticdomain')) {
+            $plugins = $this->Plugin_GetActivePlugins();
+            if (in_array('staticdomain', $plugins)) {
+                $bStaticDomain = true;
+            }
+        }
+        Config::Set('plugin.httpsdetect.staticdomain', $bStaticDomain);
         return true;
     }
 
@@ -60,11 +68,15 @@ class PluginHttpsdetect extends Plugin {
     static public function CorrectImages($sText, $bBidirect = true) {
         $bHttps = Config::Get('plugin.httpsdetect.https');
         if (Config::Get('plugin.httpsdetect.correct_img_src')) {
-            $sServer = parse_url(Config::Get('path.root.web'), PHP_URL_HOST);
+            $aServers = array(parse_url(Config::Get('path.root.web'), PHP_URL_HOST));
+            if (Config::Get('plugin.httpsdetect.staticdomain')) {
+                $aServers[] = parse_url(Config::Get('plugin.staticdomain.static_web'), PHP_URL_HOST);
+            }
+            $sServers = count($aServers)>1 ? ('[' . implode('|', $aServers) . ']') : $aServers[0];
             if ($bHttps) {
-                $sText = preg_replace('~(src\s*=\s*["|\'])http:\/\/' . $sServer . '~musi', '$1https://' . $sServer, $sText);
+                $sText = preg_replace('~(src\s*=\s*["|\'])http:\/\/(' . $sServers . ')~musi', '$1https://$2', $sText);
             } elseif ($bBidirect) {
-                $sText = preg_replace('~(src\s*=\s*["|\'])https:\/\/' . $sServer . '~musi', '$1http://' . $sServer, $sText);
+                $sText = preg_replace('~(src\s*=\s*["|\'])https:\/\/(' . $sServers . ')~musi', '$1http://$2', $sText);
             }
         }
         if (Config::Get('plugin.httpsdetect.correct_video_src') && $bHttps) {

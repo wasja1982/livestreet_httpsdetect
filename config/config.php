@@ -2,7 +2,7 @@
 /**
  * HTTPS Detect - отслеживание HTTP / HTTPS входа на сайт
  *
- * Версия:	1.0.0
+ * Версия:	1.0.1
  * Автор:	Александр Вереник
  * Профиль:	http://livestreet.ru/profile/Wasja/
  * GitHub:	https://github.com/wasja1982/livestreet_httpsdetect
@@ -17,10 +17,10 @@ $config['correct_js_link'] = true;
 // Обрабатывать ссылки на CSS-файлы
 $config['correct_css_link'] = true;
 
-// Обрабатывать ссылки на изображения в тексте топиков и комментариев
+// Обрабатывать ссылки на изображения в тексте
 $config['correct_img_src'] = true;
 
-// Обрабатывать ссылки на видео в тексте топиков и комментариев
+// Обрабатывать ссылки на видео в тексте
 $config['correct_video_src'] = true;
 
 // Использовать отдельный путь для хранения JS и CSS файлов HTTPS протокола
